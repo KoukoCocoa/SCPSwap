@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Exiled.API.Interfaces;
 
@@ -9,6 +9,7 @@ namespace ScpSwap
         public bool IsEnabled { get; set; } = true;
         public bool DisplayStartMessage { get; set; } = true;
         public bool SwapAllowNewScps { get; set; } = false;
+        public bool SwapAllowDuplicatesOfTheSameScp { get; set; } = false;
         public float SwapTimeout { get; set; } = 60f;
         public float SwapRequestTimeout { get; set; } = 20f;
         public ushort StartMessageTime { get; set; } = 15;
