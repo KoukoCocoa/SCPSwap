@@ -1,4 +1,4 @@
-﻿using Exiled.API.Features;
+using Exiled.API.Features;
 using Exiled.Events.EventArgs;
 using MEC;
 using System.Collections.Generic;
@@ -233,13 +233,14 @@ namespace ScpSwap
 								}
 
 								swap = Player.List.FirstOrDefault(x => role == RoleType.Scp93953 ? x.Role == role || x.Role == RoleType.Scp93989 : x.Role == role);
-								if (swap != null)
+								if (!plugin.Config.SwapAllowDuplicatesOfTheSameScp && swap != null)
 								{
 									reqCoroutines.Add(ev.Player, Timing.RunCoroutine(SendRequest(ev.Player, swap)));
 									ev.ReturnMessage = "Swap request sent!";
 									ev.Color = "green";
 									return;
 								}
+								
 								if (plugin.Config.SwapAllowNewScps)
 								{
 									ev.Player.ReferenceHub.characterClassManager.SetPlayersClass(role, ev.Player.ReferenceHub.gameObject);
