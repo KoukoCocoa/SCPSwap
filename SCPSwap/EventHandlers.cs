@@ -240,7 +240,6 @@ namespace ScpSwap
 									ev.Color = "green";
 									return;
 								}
-								
 								if (plugin.Config.SwapAllowNewScps)
 								{
 									ev.Player.ReferenceHub.characterClassManager.SetPlayersClass(role, ev.Player.ReferenceHub.gameObject);
