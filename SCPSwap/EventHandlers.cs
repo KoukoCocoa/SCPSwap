@@ -10,7 +10,6 @@ namespace ScpSwap
 {
 	public sealed class EventHandlers
 	{
-		// Riverrunner is the best, hehe
 		private Dictionary<Player, Player> ongoingReqs = new Dictionary<Player, Player>();
 
 		private List<CoroutineHandle> coroutines = new List<CoroutineHandle>();
@@ -50,6 +49,17 @@ namespace ScpSwap
 			dest.ReferenceHub.characterClassManager.TargetConsolePrint(dest.ReferenceHub.scp079PlayerScript.connectionToClient, $"You have received a swap request from {source.ReferenceHub.nicknameSync.Network_myNickSync} who is SCP-{valid.FirstOrDefault(x => x.Value == source.Role).Key}. Would you like to swap with them? Type \".scpswap yes\" to accept or \".scpswap no\" to decline.", "yellow");
 			yield return Timing.WaitForSeconds(plugin.Config.SwapRequestTimeout);
 			TimeoutRequest(source);
+		}
+
+		public void OnChangingRole(ChangingRoleEventArgs ev)
+		{
+			if (!plugin.Config.CanPeanutAndShyguyBeInSameRound)
+			{
+				Timing.CallDelayed(1.5f, () =>
+				{
+					if (ev.NewRole == RoleType.Scp173 && Player.Get(RoleType.Scp096) != null) ev.NewRole = RoleType.Scp93953;
+				});
+			}
 		}
 
 		private void TimeoutRequest(Player source)
@@ -232,6 +242,20 @@ namespace ScpSwap
 									return;
 								}
 
+								if (!plugin.Config.CanPeanutAndShyguyBeInSameRound && role == RoleType.Scp096 && Player.Get(RoleType.Scp173) != null)
+								{
+									ev.ReturnMessage = "SCP-096 and SCP-173 cannot be in the same round.";
+									ev.Color = "red";
+									return;
+								}
+
+								if (!plugin.Config.CanPeanutAndShyguyBeInSameRound && role == RoleType.Scp173 && Player.Get(RoleType.Scp096) != null)
+								{
+									ev.ReturnMessage = "SCP-096 and SCP-173 cannot be in the same round.";
+									ev.Color = "red";
+									return;
+								}
+
 								swap = Player.List.FirstOrDefault(x => role == RoleType.Scp93953 ? x.Role == role || x.Role == RoleType.Scp93989 : x.Role == role);
 								if (!plugin.Config.SwapAllowDuplicatesOfTheSameScp && swap != null)
 								{
@@ -243,7 +267,7 @@ namespace ScpSwap
 								if (plugin.Config.SwapAllowNewScps)
 								{
 									ev.Player.ReferenceHub.characterClassManager.SetPlayersClass(role, ev.Player.ReferenceHub.gameObject);
-									ev.ReturnMessage = "Could not find a player to swap with, you have been made the specified SCP.";
+									ev.ReturnMessage = "You have been made the specified SCP.";
 									ev.Color = "green";
 									return;
 								}
