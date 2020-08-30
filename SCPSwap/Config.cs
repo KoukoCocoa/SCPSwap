@@ -15,6 +15,5 @@ namespace ScpSwap
         public ushort StartMessageTime { get; set; } = 15;
         public string DisplayMessageText { get; set; } = "<color=yellow><b>Did you know you can swap classes with other SCP's?</b></color> Simply type <color=orange>.scpswap (role number)</color> in your in-game console (not RA) to swap!";
         public List<int> SwapBlacklist { get; private set; } = new List<int>() { 10 };
-        public bool CanPeanutAndShyguyBeInSameRound { get; set; } = true;
     }
 }
