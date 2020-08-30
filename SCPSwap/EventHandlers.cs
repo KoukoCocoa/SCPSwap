@@ -3,6 +3,8 @@ using Exiled.Events.EventArgs;
 using MEC;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
+using System.Security.Claims;
 using System.Text;
 using UnityEngine;
 
@@ -38,6 +40,18 @@ namespace ScpSwap
 			{"zombie", RoleType.Scp0492}
 		};
 
+		private Dictionary<int, RoleType> IdToRoletype = new Dictionary<int, RoleType>()
+		{
+			{0, RoleType.Scp173},
+			{3, RoleType.Scp106},
+			{5, RoleType.Scp049},
+			{7, RoleType.Scp079},
+			{9, RoleType.Scp096},
+			{10, RoleType.Scp0492},
+			{16, RoleType.Scp93953},
+			{17, RoleType.Scp93989}
+		};
+
 		public ScpSwap plugin;
 
 		public EventHandlers(ScpSwap plugin) => this.plugin = plugin;
@@ -49,6 +63,21 @@ namespace ScpSwap
 			dest.ReferenceHub.characterClassManager.TargetConsolePrint(dest.ReferenceHub.scp079PlayerScript.connectionToClient, $"You have received a swap request from {source.ReferenceHub.nicknameSync.Network_myNickSync} who is SCP-{valid.FirstOrDefault(x => x.Value == source.Role).Key}. Would you like to swap with them? Type \".scpswap yes\" to accept or \".scpswap no\" to decline.", "yellow");
 			yield return Timing.WaitForSeconds(plugin.Config.SwapRequestTimeout);
 			TimeoutRequest(source);
+		}
+
+		public void OnChangingRole(ChangingRoleEventArgs ev)
+		{
+			Timing.CallDelayed(1.5f, () =>
+			{
+				if (plugin.Config.DisallowedScpCompinations.ContainsKey((int) ev.NewRole) && !Player.Get(IdToRoletype[plugin.Config.DisallowedScpCompinations[(int)ev.NewRole]]).IsEmpty())
+				{
+					var scplist = new List<RoleType> {RoleType.Scp049, RoleType.Scp079, RoleType.Scp096, RoleType.Scp106, RoleType.Scp173, RoleType.Scp93953, RoleType.Scp93989};
+					var random = new System.Random();
+					int scplistindex = random.Next(scplist.Count);
+					while (ev.NewRole == scplist[scplistindex]) scplistindex = random.Next(scplist.Count);
+					ev.Player.Role = scplist[scplistindex];
+				}
+			});
 		}
 
 		private void TimeoutRequest(Player source)
@@ -227,6 +256,13 @@ namespace ScpSwap
 								if (ev.Player.Role == role)
 								{
 									ev.ReturnMessage = "You cannot swap with your own role.";
+									ev.Color = "red";
+									return;
+								}
+								
+								if (plugin.Config.DisallowedScpCompinations.ContainsKey((int)role) && !Player.Get(IdToRoletype[plugin.Config.DisallowedScpCompinations[(int)role]]).IsEmpty())
+								{
+									ev.ReturnMessage = $"{role} and {IdToRoletype[plugin.Config.DisallowedScpCompinations[(int)role]]} cannot be in the same round.";
 									ev.Color = "red";
 									return;
 								}
