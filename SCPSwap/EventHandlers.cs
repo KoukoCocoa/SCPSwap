@@ -51,17 +51,6 @@ namespace ScpSwap
 			TimeoutRequest(source);
 		}
 
-		public void OnChangingRole(ChangingRoleEventArgs ev)
-		{
-			if (!plugin.Config.CanPeanutAndShyguyBeInSameRound)
-			{
-				Timing.CallDelayed(1.5f, () =>
-				{
-					if (ev.NewRole == RoleType.Scp173 && Player.Get(RoleType.Scp096) != null) ev.NewRole = RoleType.Scp93953;
-				});
-			}
-		}
-
 		private void TimeoutRequest(Player source)
 		{
 			if (ongoingReqs.ContainsKey(source))
@@ -238,20 +227,6 @@ namespace ScpSwap
 								if (ev.Player.Role == role)
 								{
 									ev.ReturnMessage = "You cannot swap with your own role.";
-									ev.Color = "red";
-									return;
-								}
-
-								if (!plugin.Config.CanPeanutAndShyguyBeInSameRound && role == RoleType.Scp096 && Player.Get(RoleType.Scp173) != null)
-								{
-									ev.ReturnMessage = "SCP-096 and SCP-173 cannot be in the same round.";
-									ev.Color = "red";
-									return;
-								}
-
-								if (!plugin.Config.CanPeanutAndShyguyBeInSameRound && role == RoleType.Scp173 && Player.Get(RoleType.Scp096) != null)
-								{
-									ev.ReturnMessage = "SCP-096 and SCP-173 cannot be in the same round.";
 									ev.Color = "red";
 									return;
 								}
