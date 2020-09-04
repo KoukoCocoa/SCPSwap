@@ -1,4 +1,4 @@
-# Improved version of [KoukoCocoa/SCPSwap](https://github.com/KoukoCocoa/SCPSwap) with with these added options:
+# An improved version of [KoukoCocoa/SCPSwap](https://github.com/KoukoCocoa/SCPSwap) with these added options:
 - option to allow duplicates of the same SCP
 - an option to disallow specific SCP combinations
 - an option to allow SCPs to change to class-d/scientist/guard, if someone with that role already exists, they'll receive a role swap request they can accept or reject.
