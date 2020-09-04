@@ -23,4 +23,3 @@ Download [ScpSwap.dll](https://github.com/Aevann1/SCPSwap/releases) and place it
     0: 9
     9: 0
 ```
-
