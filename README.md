@@ -16,10 +16,11 @@ Download [ScpSwap.dll](https://github.com/Aevann1/SCPSwap/releases) and place it
   swap_timeout: 60
   swap_request_timeout: 20
   start_message_time: 15
-  display_message_text: <color=yellow><b>Did you know you can swap classes with other SCP's?</b></color> Simply type <color=orange>.scpswap (role number)</color> in your in-game console (not RA) to swap!
   swap_blacklist:
   - 10
   disallowed_scp_compinations:
     0: 9
     9: 0
+  allow_scps_to_change_to_other_roles: true
+  display_message_text: <b>You can change your role through the console (~ key) by typing <color=purple>.scpswap insert_role</color> If someone with that role already exists, they'll receive a request to swap they can accept or reject. You can also use <color=purple>.scpswap list</color> to list all available roles.
 ```
