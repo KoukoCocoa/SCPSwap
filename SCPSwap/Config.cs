@@ -15,14 +15,10 @@ namespace ScpSwap
         public bool SwapAllowNewScps { get; set; } = false;
         public bool SwapAllowDuplicatesOfTheSameScp { get; set; } = false;
         public Dictionary<int, int> DisallowedScpCompinations { get; set; } = new Dictionary<int, int>
-	{
 		{
-			0, 9
-		},
-		{
-			9, 0
-		},
-	};
+			{0, 9},
+			{9, 0},
+		};
         public bool AllowScpsToChangeToOtherRoles { get; set; } = true;
         public string DisplayMessageText { get; set; } = "<b>You can change your role through the console (~ key) by typing <color=purple>.scpswap insert_role</color> If someone with that role already exists, they'll receive a request to swap they can accept or reject. You can also use <color=purple>.scpswap list</color> to list all available roles.";
 	}
