@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Exiled.API.Features;
 using Exiled.Events.EventArgs;
 using MEC;
