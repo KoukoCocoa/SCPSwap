@@ -21,9 +21,10 @@ namespace ScpSwap
 
 		private StringBuilder listBuilder = new StringBuilder();
 
-		private Dictionary<string, RoleType> valid = new Dictionary<string, RoleType>()
-		{
-			{"SCP-173", RoleType.Scp173},
+		private Dictionary<string, RoleType> valid = new Dictionary<string, RoleType>(){};
+		
+		if 	plugin.Config.AllowScpsToChangeToOtherRoles 
+		valid =  {"SCP-173", RoleType.Scp173},
 			{"173", RoleType.Scp173},
 			{"peanut", RoleType.Scp173},
 			{"SCP-939", RoleType.Scp93953},
@@ -50,8 +51,29 @@ namespace ScpSwap
 			{"scientist", RoleType.Scientist},
 			{"Facility Guard", RoleType.ClassD},
 			{"guard", RoleType.FacilityGuard}
-		};
 		
+		else valid =  {"SCP-173", RoleType.Scp173},
+			{"173", RoleType.Scp173},
+			{"peanut", RoleType.Scp173},
+			{"SCP-939", RoleType.Scp93953},
+			{"939", RoleType.Scp93953},
+			{"dog", RoleType.Scp93953},
+			{"SCP-079", RoleType.Scp079},
+			{"079", RoleType.Scp079},
+			{"computer", RoleType.Scp079},
+			{"SCP-106", RoleType.Scp106},
+			{"106", RoleType.Scp106},
+			{"larry", RoleType.Scp106},
+			{"SCP-096", RoleType.Scp096},
+			{"096", RoleType.Scp096},
+			{"shyguy", RoleType.Scp096},
+			{"SCP-049", RoleType.Scp049},
+			{"049", RoleType.Scp049},
+			{"doctor", RoleType.Scp049},
+			{"SCP-049-2", RoleType.Scp0492},
+			{"0492", RoleType.Scp0492},
+			{"zombie", RoleType.Scp0492},
+
 		public ScpSwap plugin;
 
 		public EventHandlers(ScpSwap plugin) => this.plugin = plugin;
