@@ -5,7 +5,7 @@
 
 # Installation
 
-Install the latest of version of [EXILED](https://github.com/galaxy119/EXILED) if you don't have it, then download [ScpSwap.dll](https://github.com/Aevann1/SCPSwap/releases) and place it in in %appdata%\EXILED\Plugins
+Install the latest of version of [EXILED](https://github.com/galaxy119/EXILED) if you don't have it, then download [ScpSwap.dll](https://github.com/Aevann1/SCPSwap/releases) and place it in in "%appdata%\EXILED\Plugins"
 
 # Default configs:
 ```yaml
